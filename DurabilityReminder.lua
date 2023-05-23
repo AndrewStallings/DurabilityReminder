@@ -8,6 +8,11 @@ local function ToggleSoundOnLaunch()
     end
 end
 
+local function formatString(num)
+    return tonumber(string.format("%.1f", num))
+end
+
+
 local function ToggleSound()
     DurabilityReminderSoundToggle = not DurabilityReminderSoundToggle
 end
@@ -17,7 +22,7 @@ local function PrintSingleItem(durability, index)
     if (durability == 0) then
         DEFAULT_CHAT_FRAME:AddMessage(GetInventoryItemLink("player", index) .. "is broken.", 1, 1, 0)
     else
-        DEFAULT_CHAT_FRAME:AddMessage(GetInventoryItemLink("player", index) .. " is at " .. durability .. "% durability.",
+        DEFAULT_CHAT_FRAME:AddMessage(GetInventoryItemLink("player", index) .. " is at " .. formatString(durability) .. "% durability.",
             1, 1, 0)
     end
 end
@@ -62,7 +67,7 @@ end
 local function printPlayerDurability()
     local avg = getDurabilityAverage()
     avg = avg * 100
-    local avgstring = tonumber(string.format("%.1f", avg))
+    local avgstring = formatString(avg)
     if (avg >= 70) then
         printGreenMessage("Your durability is currently at " .. avgstring .. "% :)")
     elseif (avg >= 30) then
